@@ -6,13 +6,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @post.user %>
-</p>
-
-<p>
   <strong>Topic:</strong>
-  <%= @post.topic %>
+  <%= @post.topic.name if @post.topic %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

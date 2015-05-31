@@ -16,12 +16,8 @@
     <%= f.text_area :body %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
     <%= f.label :topic_id %><br>
-    <%= f.text_field :topic_id %>
+    <%= f.select :topic_id, [['-- None --', '']] + current_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
   </div>
   <div class="actions">
     <%= f.submit %>
