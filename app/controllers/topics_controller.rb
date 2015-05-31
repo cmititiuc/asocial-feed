@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   # GET /topics
@@ -27,7 +28,7 @@ class TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     respond_to do |format|
-      if @topic.save
+      if @topic.sav
         format.html { redirect_to @topic, notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: @topic }
       else
