@@ -8,6 +8,20 @@
 </head>
 <body>
 
+<% if user_signed_in? %>
+  <div id="nav_links_container">
+    <%= link_to 'Welcome', welcome_index_path %>
+    <%#= link_to 'Posts', posts_path %>
+    [ <%= current_user.email %> ]::[
+    <%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %> ]
+  </div>
+<% else %>
+  <%= link_to 'Sign in', new_user_session_path %>
+<% end %>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
 <%= yield %>
 
 </body>
