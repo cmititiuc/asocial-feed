@@ -13,10 +13,10 @@
         <%= post.created_at.strftime('%a, %b %d, %Y') %>
       <% end %>
     </div>
-    <div class="col-1-10 time"><%= post.created_at.strftime('%-I:%M %p') %></div>
+    <div class="col-2-12 time"><%= post.created_at.strftime('%-I:%M %p') %></div>
     <div class="col-2-12 topic"><%= post.topic.name if post.topic %></div>
-    <div class="col-5-12 body"><%= RedCloth.new(post.body).to_html.html_safe %></div>
-    <div class="col-1-8 links">
+    <div class="col-4-12 body"><%= RedCloth.new(post.body).to_html.html_safe %></div>
+    <div class="col-2-12 links">
       <%= link_to 'Show', post %>
       <%= link_to 'Edit', edit_post_path(post) %>
       <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>

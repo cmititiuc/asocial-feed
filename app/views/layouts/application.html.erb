@@ -10,9 +10,9 @@
 
 <% if user_signed_in? %>
   <div id="nav_links_container">
-    <%= link_to 'Posts', posts_path %>
-    <%= link_to 'Topics', topics_path %>
-    [ <%= current_user.email %> ]::[
+    [ <%= link_to 'Posts', posts_path, :class=>"#{'current-page-link' if controller_name == 'posts'}" %>
+    <%= link_to 'Topics', topics_path, :class=>"#{'current-page-link' if controller_name == 'topics'}" %> ]::[
+    <%= current_user.email %> ]::[
     <%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %> ]
   </div>
 <% end %>
