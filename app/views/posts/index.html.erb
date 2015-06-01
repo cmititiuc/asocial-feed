@@ -14,7 +14,7 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.body %></td>
+        <td><%= RedCloth.new(post.body).to_html.html_safe %></td>
         <td><%= post.topic.name if post.topic %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>

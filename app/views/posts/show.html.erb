@@ -2,7 +2,7 @@
 
 <p>
   <strong>Body:</strong>
-  <%= @post.body %>
+  <%= RedCloth.new(@post.body).to_html.html_safe %>
 </p>
 
 <p>

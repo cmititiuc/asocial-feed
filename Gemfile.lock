@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (4.2.1)
       actionpack (= 4.2.1)
       actionview (= 4.2.1)
@@ -154,6 +155,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   byebug
   coffee-rails (~> 4.1.0)
   devise
