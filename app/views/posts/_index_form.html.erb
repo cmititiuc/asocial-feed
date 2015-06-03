@@ -12,13 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body, :id => 'post-form-body-input-field' %>
-  </div>
-  <div class="field">
-    <%= f.label :topic_id %><br>
     <%= f.select :topic_id, [['-- None --', '']] + current_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
   </div>
+  <div class="field">
+    <%= f.text_area :body, :style=>'width: 100%; height: 100%' %>
+  </div>
+  <%= hidden_field_tag :return_to, posts_path %>
   <div class="actions">
     <%= f.submit %>
   </div>

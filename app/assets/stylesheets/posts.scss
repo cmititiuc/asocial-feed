@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-textarea {
-  width: 400px;
-  height: 200px;
-}
-
 .grid div {
   min-height: 1px; /* keeps empty divs from collapsing */
   p {
@@ -28,4 +23,19 @@ textarea {
   font-weight: bold;
   font-size: medium;
   text-decoration: none;
+}
+
+#post-index-form-container {
+  max-width: 500px;
+  width: 100%;
+  /*max-width: 50em;*/
+  margin-left: auto;
+  margin-right: auto;
+  /*margin-bottom: 2em;*/
+  margin-bottom: 20px;
+}
+
+#post-form-body-input-field {
+  width: 500px;
+  height: 300px;
 }
