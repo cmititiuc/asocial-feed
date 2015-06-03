@@ -6,7 +6,7 @@
 
 <% day = nil %>
 <% @posts.each do |post| %>
-  <div class="grid">
+  <div class="grid grid-pad">
     <div class="col-2-12 date">
       <% unless day == post.created_at.strftime('%A') %>
         <% day = post.created_at.strftime('%A') %>
