@@ -4,6 +4,14 @@
 
 <%= link_to 'New Post', new_post_path %>
 
+<div style="text-align: center;">
+  <%= link_to 'clear filter', posts_path if params[:filter] %>
+  <%= link_to 'none', posts_path(:filter=>'nil') %>
+  <% current_user.topics.order(:name).each do |topic| %>
+    <%= link_to topic.name, posts_path(:filter=>topic.id) %>
+  <% end %>
+</div>
+
 <% day = nil %>
 <% @posts.each do |post| %>
   <div class="grid grid-pad">

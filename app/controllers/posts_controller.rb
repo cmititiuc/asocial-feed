@@ -6,6 +6,14 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = current_user.posts
+
+    if params[:filter]
+      if params[:filter] == 'nil'
+        @posts = @posts.where('topic_id IS NULL')
+      else
+        @posts = @posts.where('topic_id = ?', params[:filter]) if params[:filter]
+      end
+    end
   end
 
   # GET /posts/1
