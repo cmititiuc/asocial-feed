@@ -15,7 +15,7 @@
     <%= f.select :topic_id, [['-- None --', '']] + current_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
   </div>
   <div class="field">
-    <%= f.text_area :body, :style=>'width: 100%; height: 100%' %>
+    <%= f.text_area :body %>
   </div>
   <%= hidden_field_tag :return_to, posts_path %>
   <div class="actions">
