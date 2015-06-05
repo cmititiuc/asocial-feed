@@ -2,10 +2,8 @@ require 'test_helper'
 
 class PostsControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
     @post = posts(:one)
-    @post.update_attributes(:user_id => @user.id)
-    sign_in @user
+    sign_in @post.user
   end
 
   test "should get index" do

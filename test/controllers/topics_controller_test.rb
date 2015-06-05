@@ -2,10 +2,8 @@ require 'test_helper'
 
 class TopicsControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
     @topic = topics(:one)
-    @topic.update_attributes(:user_id => @user.id)
-    sign_in @user
+    sign_in @topic.user
   end
 
   test "should get index" do
