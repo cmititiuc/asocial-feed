@@ -2,12 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.grid div {
-  min-height: 1px; /* keeps empty divs from collapsing */
-  p {
-    margin-top: 0;
+.grid {
+  div {
+    min-height: 1px; /* keeps empty divs from collapsing */
+    margin-bottom: 2em;
+    p {
+      margin-top: 0;
+    }
   }
-  margin-bottom: 2em;
+  &:hover {
+    background-color: #f3f9f9;
+  }
 }
 
 .date, .time, .topic {
