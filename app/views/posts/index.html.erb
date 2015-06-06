@@ -6,11 +6,13 @@
 
 <%= link_to 'New Post', new_post_path %>
 
-<div style="text-align: center;">
-  <%= link_to 'clear filter', posts_path if params[:filter] %>
-  <%= link_to 'none', posts_path(:filter=>'nil') %>
+<div id="filter-container" style="text-align: center;">
+  <%= link_to 'clear filter', posts_path if params[:topic_id] %>
+  <%= link_to 'none', posts_path(:topic_id => 'nil'),
+      :class => "#{'current-page-link' if params[:topic_id] == 'nil'}" unless current_user.topics.empty? %>
   <% current_user.topics.order(:name).each do |topic| %>
-    <%= link_to topic.name, posts_path(:filter=>topic.id) %>
+    <%= link_to topic.name, posts_path(:topic_id => topic.id),
+        :class => "#{'current-page-link' if params[:topic_id].to_i == topic.id}"  %>
   <% end %>
 </div>
 

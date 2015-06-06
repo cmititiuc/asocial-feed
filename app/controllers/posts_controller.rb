@@ -7,14 +7,7 @@ class PostsController < ApplicationController
   def index
     @post = Post.new
     @posts = current_user.posts
-
-    if params[:filter]
-      if params[:filter] == 'nil'
-        @posts = @posts.where('topic_id IS NULL')
-      else
-        @posts = @posts.where('topic_id = ?', params[:filter]) if params[:filter]
-      end
-    end
+    @posts = @posts.topic_id(params[:topic_id]) if params[:topic_id]
   end
 
   # GET /posts/1
