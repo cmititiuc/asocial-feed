@@ -10,6 +10,13 @@ class PostsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:posts)
+    assert_select '#filter-container', /none.+#{@post.topic.name}/m
+
+    sign_out @post.user
+    sign_in users(:two)
+
+    get :index
+    assert_select '#filter-container', ''
   end
 
   test "should get new" do

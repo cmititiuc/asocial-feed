@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: Topic 1
+metaphysics:
+  name: Metaphysics
   user: one
-
-two:
-  name: Topic 2
-  user: two
