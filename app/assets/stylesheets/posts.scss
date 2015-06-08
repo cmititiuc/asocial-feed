@@ -5,10 +5,10 @@
 .grid {
   div {
     min-height: 1px; /* keeps empty divs from collapsing */
-    margin-bottom: 2em;
     p {
       margin-top: 0;
     }
+    // border: 1px solid teal;
   }
   &:hover {
     background-color: #f9f9f3;
@@ -19,8 +19,33 @@
   font-size: medium;
 }
 
+.date {
+  width: 11em;
+  float: left;
+}
+
+.time {
+  width: 6em;
+  float: left;
+}
+
+.topic {
+  display: inline-block;
+  width: 8em;
+  float: left;
+}
+
+.body {
+  padding-left: 32em;
+  padding-right: 10em;
+  width: 100%;
+}
+
 .links {
   font-size: x-small;
+  display: inline-block;
+  width: 12em;
+  float: right;
 }
 
 .current-page-link {
@@ -50,4 +75,44 @@
 
 #post_body {
   width: 100%;
+}
+
+#filter-container {
+  margin-bottom: 20px;
+}
+
+@media handheld, only screen and (max-width: 860px) {
+  .links {
+    display: inline-block; width: 4em; float: right;
+  }
+  .data {
+    width: 11em; float: left;
+  }
+  .time {
+    width: 6em; float: left; clear: left;
+  }
+  .topic {
+    display: inline-block; width: 8em; float: left; clear: left;
+  }
+  .body {
+    padding-left: 15em; padding-right: 4em; width: 100%;
+  }
+}
+
+@media handheld, only screen and (max-width: 539px) {
+  .links {
+    display: block; width: 100%; float: none;
+  }
+  .data {
+    width: 100%; float: none;
+  }
+  .time {
+    width: 100%; float: none; clear: none;
+  }
+  .topic {
+    display: block; width: 100%; float: none; clear: none;
+  }
+  .body {
+    padding-left: 0; padding-right: 0; width: 100%;
+  }
 }
