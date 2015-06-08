@@ -3,12 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
-  # Output viewport size (debug)
-  $('body').prepend \
-    'window width: ' + $(window).width() + '<br />' +
-    'window height: ' + $(window).height() + '<br />' +
-    ' screen width: ' + screen.width + '<br />screen height: ' + screen.height
-
   # Resize post form input field:
   
   # 1. GET
