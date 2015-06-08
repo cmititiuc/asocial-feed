@@ -81,7 +81,7 @@
   margin-bottom: 20px;
 }
 
-@media handheld, only screen and (max-width: 860px) {
+@media (max-width: 860px) {
   .links {
     display: inline-block; width: 4em; float: right;
   }
@@ -99,7 +99,7 @@
   }
 }
 
-@media handheld, only screen and (max-width: 539px) {
+@media (max-width: 539px) {
   .links {
     display: block; width: 100%; float: none;
   }
