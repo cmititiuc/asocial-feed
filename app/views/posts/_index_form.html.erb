@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.select :topic_id, [['-- None --', '']] + current_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
+    <%= f.select :topic_id, [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
   </div>
   <div class="field">
     <%= f.text_area :body %>

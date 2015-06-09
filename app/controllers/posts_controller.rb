@@ -6,8 +6,9 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @post = Post.new
-    @posts = current_user.posts
+    @posts = current_or_guest_user.posts
     @posts = @posts.topic_id(params[:topic_id]) if params[:topic_id]
+    @current_or_guest_user = current_or_guest_user
   end
 
   # GET /posts/1
@@ -27,7 +28,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_or_guest_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
@@ -67,7 +68,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = current_user.posts.find(params[:id])
+      @post = current_or_guest_user.posts.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

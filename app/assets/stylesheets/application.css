@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.guest-login {
+  margin-bottom: 10px;
+}
