@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     guest_user
     movie_topic = guest_user.topics.create(:name => 'Movies')
     movies = [
-      "The Princess Bride",
+      "The Princess Bride\n\n*Film Noir*\n\nThe Big Head\n-The Big Sleep-",
       "Honey I Shrunk the Kids",
       "Teenage Mutant Ninja Turtles"
     ]
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
       "The Old Man and the Sea",
       "Grapes of Wrath",
       "Moby Dick",
-      "A Brief History of Time"
+      "A Brief History of Time - Stephen Hawking"
     ]
     books.each_with_index do |book, index|
       post = guest_user.posts.create(:body => book, :topic => book_topic)
