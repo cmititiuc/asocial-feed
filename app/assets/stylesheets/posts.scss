@@ -146,7 +146,7 @@
   }
 }
 
-#formatting-help {
+#formatting-help, #add-new-topic {
   float: right;
   color: #000;
   &:hover {
@@ -155,4 +155,8 @@
     cursor: pointer;
   }
   text-decoration: underline;
+}
+
+#add-new-topic {
+  display: none;
 }

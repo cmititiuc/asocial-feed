@@ -13,6 +13,7 @@
 
   <div class="field">
     <%= f.select :topic_id, [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
+    <span id="add-new-topic">Add new topic</span>
   </div>
   <div class="field">
     <%= f.text_area :body %>
