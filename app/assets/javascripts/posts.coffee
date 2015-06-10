@@ -16,7 +16,6 @@ $(document).on 'page:load', ->
 
 $(document).on 'click', '#formatting-help', ->
   $('.markup-reference').toggle 400, ->
-    if $('#formatting-help').html().match /Hide.+/
-      $('#formatting-help').html 'Formatting help'
-    else
-      $('#formatting-help').html 'Hide formatting help'
+    match = $('#formatting-help').html().match /(H|h)ide.+/
+    text = if match then 'Formatting help' else 'Hide formatting help'
+    $('#formatting-help').html text
