@@ -4,7 +4,7 @@
   <%= render :partial => 'posts/index_form' %>
   <% examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
                    @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list) %>
-  <% examples << "\"This is a link (This is a title)\":#{root_url}" %>
+  <% examples << "\"This is a link (This is a title)\":http://example.org" %>
   <div class="markup-reference" style="display: none">
     <div style="text-align: center; padding: .1em; background-color: #EEEEFF; margin-top: 1em;">Formatting Reference</div>
     <% examples.each do |example| %>
