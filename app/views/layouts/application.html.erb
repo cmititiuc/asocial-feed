@@ -10,11 +10,15 @@
 <body>
 
 <% if user_signed_in? %>
-  <div id="nav_links_container">
-    [ <%= link_to 'Posts', posts_path, :class=>"#{'current-page-link' if controller_name == 'posts'}" %>
-    <%= link_to 'Topics', topics_path, :class=>"#{'current-page-link' if controller_name == 'topics'}" %> ]::[
-    <%= current_user.email %> ]::[
-    <%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %> ]
+  <div class="grid grid-pad" style="max-width: 100%; background-color: transparent;">
+    <div class="col-1-12 push-right" style="text-align: right;"><%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %></div>
+    <div class="col-2-12 push-right" style="text-align: right;"><%= link_to current_user.email, edit_user_registration_path %></div>
+    <div class="col-1-12">
+      <%= link_to 'Posts', posts_path, :class=>"#{'current-page-link' if controller_name == 'posts'}" %>
+    </div>
+    <div class="col-1-12">
+      <%= link_to 'Topics', topics_path, :class=>"#{'current-page-link' if controller_name == 'topics'}" %>
+    </div>
   </div>
 <% end %>
 
