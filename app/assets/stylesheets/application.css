@@ -17,3 +17,13 @@
 .guest-login {
   margin-bottom: 10px;
 }
+
+#email {
+  text-align: right;
+}
+
+@media (max-width: 540px) {
+  #header #email {
+    text-align: left;
+  }
+}

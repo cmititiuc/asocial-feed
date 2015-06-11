@@ -9,10 +9,12 @@
 </head>
 <body>
 
+<%= link_to image_tag('forkme.png', :style => 'float: right;'), "https://github.com/cmititiuc/asocial-feed" %>
+
 <% if user_signed_in? %>
-  <div class="grid grid-pad" style="max-width: 100%; background-color: transparent;">
-    <div class="col-1-12 push-right" style="text-align: right;"><%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %></div>
-    <div class="col-4-12 push-right" style="text-align: right;"><%= link_to current_user.email, edit_user_registration_path %></div>
+  <div id="header" class="grid grid-pad" style="max-width: 100%; background-color: transparent;">
+    <div class="col-1-12 push-right" style="margin-right: 150px; text-align: right;"><%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %></div>
+    <div id="email" class="col-5-12 push-right"><%= link_to current_user.email, edit_user_registration_path %></div>
     <div class="col-1-12">
       <%= link_to 'Posts', posts_path, :class=>"#{'current-page-link' if controller_name == 'posts'}" %>
     </div>

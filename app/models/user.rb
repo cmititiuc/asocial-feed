@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     samples[:books] << "-A Brief History of Time - Stephen Hawking-"
 
     samples[:movies] = []
-    samples[:movies] << "The Princess Bride\n\n*Film Noir*\n\nThe Big Head\n-The Big Sleep-"
+    samples[:movies] << "The Princess Bride\n\n*Film Noir*\n\nThe Big Heat\n-The Big Sleep-"
     samples[:movies] << "Memento\nVertigo (Hitchcock)"
     samples[:movies] << "# Teenage Mutant Ninja Turtles\n# Secret of the Ooze\n# Turtles in Time\n\n* -Serenity-\n* Solaris\n* -Jodorowsky's Dune-"
     
@@ -50,17 +50,17 @@ EOS
   def create_samples(samples)
     samples.each do |key, values|
       if key == :none
-        values.each do |v|
+        values.each do |value|
           posts.create(
-            :body => v,
+            :body => value,
             :created_at => random_date
           )
         end
       else
         topic = topics.create(:name => key.to_s.humanize.titleize)
-        values.each_with_index do |v, index|
+        values.each_with_index do |value, index|
           posts.create(
-            :body => v,
+            :body => value,
             :topic => topic,
             :created_at => random_date(index)
           )
