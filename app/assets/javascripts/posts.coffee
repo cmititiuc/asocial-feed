@@ -35,7 +35,7 @@ $(document).on 'ajax:success', '#new_post', ->
   $('#new_post #post_body').val '' # clear text
   $('#new_post #post_body').height '' # reset height
   # clear topic_id selector if no filter is set
-  $('#post_topic_id').val '' unless getQueryVariable(topic_id)
+  $('#post_topic_id').val '' unless getQueryVariable('topic_id')
   # removes the date from the second record if it is
   # the same as the date of the new record
   post = $('#filter-container').next()
