@@ -18,12 +18,21 @@
   margin-bottom: 10px;
 }
 
-#email {
+#email, #sign-out {
   text-align: right;
 }
 
+#header {
+  padding-right: 150px;
+  max-width: 100%;
+  background-color: transparent;
+}
+
 @media (max-width: 540px) {
-  #header #email {
+  #header {
+    padding-right: 0;
+  }
+  #header div {
     text-align: left;
   }
 }
