@@ -39,6 +39,20 @@ $(document).on 'ajax:success', '#new_post', ->
   oldDate = post.next().children '.date'
   oldDate.text '' if newDate.text().trim() == oldDate.text().trim()
 
+
+# delete a post
+$(document).on 'ajax:success', '.destroy', (e, data)->
+  # print notice
+  $('#notices').append '<div class="notice">' + data + '<div class="remove_notice">X</div></div>'
+  $('.notice').last().delay(2500).fadeOut 'slow', -> $(this).remove()
+  post = $(this).closest '.grid'
+  # set date for post after deleted one if it needs it
+  deletedDate = post.children '.date'
+  remainingDate = post.next().children '.date'
+  if deletedDate.text().trim().length > 0 && remainingDate.text().trim().length == 0
+    remainingDate.text deletedDate.text()
+  post.remove()
+
 # returns param value of variable or null
 window.getQueryVariable = (variable)->
    query = window.location.search.substring 1
