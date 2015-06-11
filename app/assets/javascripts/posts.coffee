@@ -37,3 +37,9 @@ $(document).on 'ajax:success', '#new_post', ->
   newDate = post.children '.date'
   oldDate = post.next().children '.date'
   oldDate.text '' if newDate.text().trim() == oldDate.text().trim()
+
+window.getQueryVariable = (variable)->
+   query = window.location.search.substring 1
+   params = query.split "&"
+   return param.split("=")[1] if param.split("=")[0] == variable for param in params
+   return false
