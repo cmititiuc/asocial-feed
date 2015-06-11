@@ -11,46 +11,29 @@ class User < ActiveRecord::Base
   end
 
   def sample_data
-    movie_topic = topics.create(:name => 'Movies')
-    movies = [
-      "The Princess Bride\n\n*Film Noir*\n\nThe Big Head\n-The Big Sleep-",
-      "Memento\nVertigo (Hitchcock)",
-      "# Teenage Mutant Ninja Turtles\n# Secret of the Ooze\n# Turtles in Time\n\n* -Serenity-\n* Solaris\n* -Jodorowsky's Dune-"
-    ]
-    movies.each_with_index do |movie, index|
-      post = posts.create(:body => movie, :topic => movie_topic)
-      post.update_attributes(:created_at => Time.now - (rand(7) + 1 + index).days - (rand(24) + 1).hours - rand(60).minutes)
-    end
+    samples = {}
+    samples[:none] = []
+    samples[:none] << "Chores\n\n* -Laundry-\n* -Dishes-\n* -Vacuum-"
+    samples[:none] << "Tar command I always forget:\n\npre. tar xvzf filename.tar.gz"
+    samples[:none] << "Replaced rotors on car"
 
-    book_topic = topics.create(:name => 'Books')
-    books = [
-      "-The Old Man and the Sea-",
-      "Victorian Literature\n\n* David Copperfield\n* Oliver Twist\n* Hard Times\n* Jane Eyre _(considered Romantic, not Victorian?)_\n* The Mill on the Floss",
-      "-Moby Dick-",
-      "-A Brief History of Time - Stephen Hawking-"
-    ]
-    books.each_with_index do |book, index|
-      post = posts.create(:body => book, :topic => book_topic)
-      post.update_attributes(:created_at => Time.now - (rand(7) + 1 + index).days - (rand(24) + 1).hours - rand(60).minutes)
-    end
+    samples[:exercise] = []
+    samples[:exercise] << "Rode the bike for 30 minutes"
+    samples[:exercise] << "Jogged on the street for 15 minutes"
+    samples[:exercise] << "Jogged on the treadmill at speed 4.0 for 15 minutes\n\nWasn't too bad.  Do again next time."
 
-    exercise_topic = topics.create(:name => 'Exercise')
-    exercises = [
-      "Rode the bike for 30 minutes",
-      "Jogged on the street for 15 minutes",
-      "Jogged on the treadmill at speed 4.0 for 15 minutes\n\nWasn't too bad.  Do again next time."
-    ]
-    exercises.each_with_index do |exercise, index|
-      post = posts.create(:body => exercise, :topic => exercise_topic)
-      post.update_attributes(:created_at => Time.now - (rand(7) + 1 + index).days - (rand(24) + 1).hours - rand(60).minutes)
-    end
+    samples[:books] = []
+    samples[:books] << "-The Old Man and the Sea-"
+    samples[:books] << "Victorian Literature\n\n* David Copperfield\n* Oliver Twist\n* Hard Times\n* Jane Eyre _(considered Romantic, not Victorian?)_\n* The Mill on the Floss"
+    samples[:books] << "-Moby Dick-"
+    samples[:books] << "-A Brief History of Time - Stephen Hawking-"
 
-    post = posts.create(:body => "Chores\n\n* -Laundry-\n* -Dishes-\n* -Vacuum-")
-    post.update_attributes(:created_at => Time.now - (rand(7) + 1).days - (rand(24) + 1).hours - rand(60).minutes)
-    post = posts.create(:body => "Tar command I always forget:\n\npre. @tar xvzf filename.tar.gz@")
-    post.update_attributes(:created_at => Time.now - (rand(7) + 1).days - (rand(24) + 1).hours - rand(60).minutes)
-    post = posts.create(:body => "Replaced rotors on car")
-    post.update_attributes(:created_at => Time.now - (rand(7) + 1).days - (rand(24) + 1).hours - rand(60).minutes)
+    samples[:movies] = []
+    samples[:movies] << "The Princess Bride\n\n*Film Noir*\n\nThe Big Head\n-The Big Sleep-"
+    samples[:movies] << "Memento\nVertigo (Hitchcock)"
+    samples[:movies] << "# Teenage Mutant Ninja Turtles\n# Secret of the Ooze\n# Turtles in Time\n\n* -Serenity-\n* Solaris\n* -Jodorowsky's Dune-"
+    
+    create_samples samples
 
     message = <<EOS
 Hello!
@@ -60,5 +43,37 @@ Thank you for your interest in asocial-feed. It's a simple way to record persona
 Since you are signed in as a guest, we've filled in some examples of use below.
 EOS
     posts.create(:body => message)
+  end
+
+  private
+
+  def create_samples(samples)
+    samples.each do |key, values|
+      if key == :none
+        values.each do |v|
+          posts.create(
+            :body => v,
+            :created_at => random_date
+          )
+        end
+      else
+        topic = topics.create(:name => key.to_s.humanize.titleize)
+        values.each_with_index do |v, index|
+          posts.create(
+            :body => v,
+            :topic => topic,
+            :created_at => random_date(index)
+          )
+        end
+      end
+    end
+  end
+
+  def random_date(index = 0)
+    now = Time.now
+    d = rand(7) + 1 + index
+    h = rand(24) + 1
+    m = rand(60)
+    now - d.days - h.hours - m.minutes
   end
 end
