@@ -118,6 +118,36 @@
   }
 }
 
+#notices {
+   position: fixed;
+   width: 300px;
+   margin: 0;
+   padding: 0;
+   top: 35px;
+   right: 0;
+}
+
+.notice {
+  width: 99%;
+  background-color: #006600;
+  padding: .5em;
+  color: white;
+  font-weight: bold;
+  margin: 1px;
+}
+
+.error {
+  width: 99%;
+  background-color: #CC0000;
+  padding: .5em;
+  color: white;
+  font-weight: bold; margin: 1px;
+}
+
+.remove_notice {
+  float: right; cursor: pointer;
+}
+
 @media (max-width: 860px) {
   .links {
     display: inline-block;

@@ -1,0 +1,19 @@
+<div class="grid grid-pad">
+  <div class="links">
+    <%= link_to 'Show', post %>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+  <div class="date">
+    <%# unless day == post.created_at.strftime('%A') %>
+      <% day = post.created_at.strftime('%A') %>
+      <%= post.created_at.strftime('%a, %b %d, %Y') %>
+    <%# end %>
+  </div>
+  <div class="time"><%= post.created_at.strftime('%-I:%M %p') %></div>
+  <div class="topic"><%= post.topic.name if post.topic %></div>
+  <div class="body">
+    <% doc = RedCloth.new(post.body); doc.filter_html = true %>
+    <%= doc.to_html.html_safe %>
+  </div>
+</div>
