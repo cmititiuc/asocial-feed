@@ -17,10 +17,8 @@ $(document).on 'keyup', '#post_body', ->
 
 # shows/hides formatting reference
 $(document).on 'click', '#formatting-help', ->
-  $('#markup-reference').toggle 400, ->
-    match = $('#formatting-help').html().match /(H|h)ide.+/
-    text = if match then 'Formatting help' else 'Hide formatting help'
-    $('#formatting-help').html text
+  $(this).children().toggle() # toggle link text
+  $('#markup-reference').toggle 400
   return false;
 
 # removes a notice when the X is clicked
@@ -51,7 +49,14 @@ $(document).on 'ajax:success', '.destroy', (e, data)->
   remainingDate = post.next().children '.date'
   if deletedDate.text().trim().length > 0 && remainingDate.text().trim().length == 0
     remainingDate.text deletedDate.text()
-  post.remove()
+  post.animate {
+    opacity:        0,
+    height:        '0',
+    paddingTop:    '0',
+    paddingBottom: '0',
+    marginTop:     '0',
+    marginBottom:  '0'
+  }, 400, -> post.remove()
 
 # returns param value of variable or null
 window.getQueryVariable = (variable)->

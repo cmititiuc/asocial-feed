@@ -23,6 +23,9 @@
   <%= hidden_field_tag :return_to, posts_path %>
   <div class="actions">
     <%= f.submit %>
-    <a id="formatting-help" href="#">Formatting help</a>
+    <a id="formatting-help" href="#">
+      <span>Formatting help</span>
+      <span style="display: none;">Hide formatting help</span>
+    </a>
   </div>
 <% end %>
