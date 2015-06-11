@@ -9,6 +9,9 @@ class PostsController < ApplicationController
     @posts = current_or_guest_user.posts
     @posts = @posts.topic_id(params[:topic_id]) if params[:topic_id]
     @current_or_guest_user = current_or_guest_user
+    @examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
+                   @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list)
+    @examples << "\"This is a link (This is a title)\":http://example.org"
   end
 
   # GET /posts/1

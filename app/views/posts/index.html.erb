@@ -2,21 +2,18 @@
 
 <div id="post-index-form-container">
   <%= render :partial => 'posts/index_form' %>
-  <% examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
-                   @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list) %>
-  <% examples << "\"This is a link (This is a title)\":http://example.org" %>
-  <div class="markup-reference" style="display: none">
-    <div style="text-align: center; padding: .1em; background-color: #EEEEFF; margin-top: 1em;">Formatting Reference</div>
-    <% examples.each do |example| %>
+  <div id="markup-reference">
+    <div>Formatting Reference</div>
+    <% @examples.each do |example| %>
       <div style="float: left"><p><%= example %></p></div>
       <div style="float: right;"><%= RedCloth.new(example).to_html.html_safe %></div>
       <div style="clear: both"></div>
     <% end %>
-    <div style="text-align: center; padding: .1em; background-color: #EEEEFF; margin-top: 1em;">We use RedCloth for simple markup.  <%= link_to 'Learn more.', 'http://redcloth.org/textile' %></div>
+    <div>We use RedCloth for simple markup.  <%= link_to 'Learn more.', 'http://redcloth.org/textile' %></div>
   </div>
 </div>
 
-<div id="filter-container" style="text-align: center;">
+<div id="filter-container">
   <%= link_to 'clear filter', posts_path if params[:topic_id] %>
   <%= link_to 'none', posts_path(:topic_id => 'nil'),
       :class => "#{'current-page-link' if params[:topic_id] == 'nil'}" unless @current_or_guest_user.topics.empty? %>

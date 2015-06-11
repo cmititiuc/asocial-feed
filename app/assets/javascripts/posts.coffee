@@ -15,7 +15,8 @@ $(document).on 'page:load', ->
   $('#post_body').height scrollHeight
 
 $(document).on 'click', '#formatting-help', ->
-  $('.markup-reference').toggle 400, ->
+  $('#markup-reference').toggle 400, ->
     match = $('#formatting-help').html().match /(H|h)ide.+/
     text = if match then 'Formatting help' else 'Hide formatting help'
     $('#formatting-help').html text
+  return false;
