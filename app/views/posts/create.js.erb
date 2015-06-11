@@ -5,10 +5,13 @@
   <% end %>
   markup += '</ul>'
   $('#notices').append('<div class="error"><div class="remove_notice">X</div>' + markup + '</div>');
-  $('.error').last().delay(2500).fadeOut('slow', function(){ $(this).remove(); });
+  var tag = '.error';
 <% else %>
-  if (!getQueryVariable('topic_id') || getQueryVariable('topic_id') == $('#post_topic_id').val())
+  var topic_id = getQueryVariable('topic_id')
+  if (!topic_id || topic_id == $('#post_topic_id').val() || (topic_id == 'nil' && $('#post_topic_id').val() == ""))
     $('#filter-container').after('<%= escape_javascript(render :partial=>'post', :locals=>{ :post=>@post }) %>');
   $('#notices').append('<div class="notice"><%= notice %><div class="remove_notice">X</div></div>');
-  $('.notice').last().delay(2500).fadeOut('slow', function(){ $(this).remove(); });
+  var tag = '.notice';
 <% end %>
+
+$(tag).last().delay(2500).fadeOut('slow', function(){ $(this).remove(); });
