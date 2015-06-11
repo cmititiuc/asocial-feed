@@ -2,28 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready ->
-  # maintains input field height if page is reloaded while field contains text
+setup = ->
+  # set correct height for input field
   scrollHeight = $('#post_body').prop 'scrollHeight'
   $('#post_body').height scrollHeight
+  # set topic_id selector if a filter is set
   topic_id = getQueryVariable 'topic_id'
   if topic_id
-    $('#post_topic_id').val ->
-      if topic_id == 'nil' then '' else topic_id
+    $('#post_topic_id').val -> if topic_id == 'nil' then '' else topic_id
+
+$(document).ready setup
+$(document).on 'page:load', setup
 
 # enlarges input field as needed while typing
 $(document).on 'keyup', '#post_body', ->
   scrollHeight = $(this).prop 'scrollHeight'
   $(this).height scrollHeight
-
-# enlarges input field on turbolink (ie index > edit)
-$(document).on 'page:load', ->
-  scrollHeight = $('#post_body').prop 'scrollHeight'
-  $('#post_body').height scrollHeight
-  topic_id = getQueryVariable 'topic_id'
-  if topic_id
-    $('#post_topic_id').val ->
-      if topic_id == 'nil' then '' else topic_id
 
 # shows/hides formatting reference
 $(document).on 'click', '#formatting-help', ->
