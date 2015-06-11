@@ -6,10 +6,6 @@ setup = ->
   # set correct height for input field
   scrollHeight = $('#post_body').prop 'scrollHeight'
   $('#post_body').height scrollHeight
-  # set topic_id selector if a filter is set
-  topic_id = getQueryVariable 'topic_id'
-  if topic_id
-    $('#post_topic_id').val -> if topic_id == 'nil' then '' else topic_id
 
 $(document).ready setup
 $(document).on 'page:load', setup

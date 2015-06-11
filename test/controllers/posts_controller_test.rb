@@ -54,4 +54,12 @@ class PostsControllerTest < ActionController::TestCase
 
     assert_redirected_to posts_path
   end
+
+  test "should set same topic as filter" do
+    get :index
+    assert_select '#post_topic_id option[selected="selected"]', 0
+
+    get :index, :topic_id => @post.topic.id
+    assert_select '#post_topic_id option[selected="selected"]', @post.topic.name
+  end
 end
