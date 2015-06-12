@@ -1,0 +1,28 @@
+// 'Cancel' link
+var cancelMarkup = '<a href="#" class="cancel">Cancel</a>';
+
+// find body container from edit link href
+var bodyContainer = $('.edit[href*="<%= @post.id %>"]').parent().siblings('.body');
+
+// save the body text in case changes are cancelled
+// TODO: just hide the body instead of deleting it, then you don't have to save the original text
+// var originalText[<%= @post.id %>] = bodyContainer.html();
+
+// get original post text
+var originalText = bodyContainer.html();
+
+// inject the form
+bodyContainer.html('<%= escape_javascript(render :partial=>'index_form', :locals=>{ :post=>@post }) %>');
+
+// save original post text
+bodyContainer.append('<div class="original-text">' + originalText + '</div>');
+
+// get the input field
+var textarea = $('#edit_post_<%= @post.id %> div #post_body');
+
+// add 'Cancel' link
+bodyContainer.prepend(cancelMarkup);
+
+// size input field to fit contents
+var scrollHeight = textarea.prop('scrollHeight');
+textarea.height(scrollHeight);

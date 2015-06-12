@@ -67,12 +67,6 @@
   @extend #post-form-container;
   margin-left: auto;
   margin-right: auto;
-  p, h3, ol, ul, blockquote {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
 }
 
 #post-form-body-input-field {
@@ -100,7 +94,7 @@
   text-decoration: underline;
 }
 
-#formatting-help {
+.formatting-help {
   float: right;
 }
 
@@ -108,13 +102,19 @@
   display: none;
 }
 
-#markup-reference {
+.markup-reference {
   display: none;
   div:first-child, div:last-child {
     text-align: center;
     padding: .1em;
     background-color: #EEEEFF;
     margin-top: 1em;
+  }
+  p, h3, ol, ul, blockquote {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 1em;
+    padding-right: 1em;
   }
 }
 
@@ -146,6 +146,18 @@
 
 .remove_notice {
   float: right; cursor: pointer;
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+.original-text {
+  display: none;
+}
+
+.cancel {
+  float: right;
 }
 
 @media (max-width: 860px) {
@@ -204,8 +216,4 @@
     padding-right: 0;
     width: 100%;
   }
-}
-
-.body p:last-child {
-  margin-bottom: 0;
 }

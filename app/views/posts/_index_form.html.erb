@@ -12,9 +12,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.select :topic_id,
-                 [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] },
-                 :selected => params[:topic_id] %>
+    <% if @post.new_record? %>
+      <%= f.select :topic_id,
+                   [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] },
+                   :selected => params[:topic_id] %>
+    <% else %>
+      <%= f.select :topic_id,
+                 [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
+    <% end %>
     <span id="add-new-topic">Add new topic</span>
   </div>
   <div class="field">
@@ -23,7 +28,7 @@
   <%= hidden_field_tag :return_to, posts_path %>
   <div class="actions">
     <%= f.submit %>
-    <a id="formatting-help" href="#">
+    <a class="formatting-help" href="#">
       <span>Formatting help</span>
       <span style="display: none;">Hide formatting help</span>
     </a>

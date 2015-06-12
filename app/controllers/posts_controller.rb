@@ -17,6 +17,13 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json {
+        @post.body = RedCloth.new(@post.body).to_html.html_safe
+        render :json => @post.to_json(:include => :topic)
+      }
+    end
   end
 
   # GET /posts/new
@@ -26,6 +33,11 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @current_or_guest_user = current_or_guest_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /posts
@@ -53,9 +65,11 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
+        format.js { render :update, :locals => { notice: 'Post was successfully updated.' }}
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

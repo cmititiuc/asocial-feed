@@ -16,20 +16,40 @@ $(document).on 'keyup', '#post_body', ->
   $(this).height scrollHeight
 
 # shows/hides formatting reference
-$(document).on 'click', '#formatting-help', ->
+$(document).on 'click', '.formatting-help', ->
   $(this).children().toggle() # toggle link text
-  $('#markup-reference').toggle 400
+  # $('#markup-reference').toggle 400
+  console.log $(this).closest('form').siblings('.markup-reference').length
+  if $(this).closest('form').siblings('.markup-reference').length > 0
+    $(this).closest('form').siblings('.markup-reference').toggle 400
+  else
+    $(this).closest('form').after '<div class="markup-reference">' + $('.markup-reference').html() + '</div>'
+    $(this).closest('form').siblings('.markup-reference').toggle 400
   return false;
 
 # removes a notice when the X is clicked
 $(document).on 'click', '.remove_notice', ->
   $(this).parent().remove()
 
+# don't get the form if it's already present
+$(document).on 'ajax:beforeSend', '.edit', ->
+  if $(this).parent().siblings('.body').children('form').length
+    return false;
+
+# replace original post text when canceling edit
+$(document).on 'click', '.cancel', ->
+  originalText = $(this).closest('.body').children('.original-text').html()
+  $(this).closest('.body').html originalText
+  return false;
+
+# add new post to page
 $(document).on 'ajax:success', '#new_post', ->
   $('#new_post #post_body').val '' # clear text
   $('#new_post #post_body').height '' # reset height
+  
   # clear topic_id selector if no filter is set
-  $('#post_topic_id').val '' unless getQueryVariable('topic_id')
+  $('#post_topic_id').val '' unless getQueryVariable 'topic_id'
+
   # removes the date from the second record if it is
   # the same as the date of the new record
   post = $('#filter-container').next()
@@ -37,6 +57,16 @@ $(document).on 'ajax:success', '#new_post', ->
   oldDate = post.next().children '.date'
   oldDate.text '' if newDate.text().trim() == oldDate.text().trim()
 
+# if edit succeeds, update the view
+$(document).on 'ajax:success', '.edit_post', ->
+  $.ajax {
+      url: '/posts/' + $(this).prop('id').match(/[0-9]+/)[0],
+      dataType: "json"
+    }
+    .done (result) =>
+      topic = $(this).parent().siblings '.topic'
+      topic.html if result.topic then result.topic.name else ''
+      $(this).html result.body
 
 # delete a post
 $(document).on 'ajax:success', '.destroy', (e, data)->
