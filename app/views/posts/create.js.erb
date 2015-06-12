@@ -8,8 +8,10 @@
   var tag = '.error';
 <% else %>
   var topic_id = getQueryVariable('topic_id')
-  if (!topic_id || topic_id == $('#post_topic_id').val() || (topic_id == 'nil' && $('#post_topic_id').val() == ""))
+  if (!topic_id || topic_id == $('#post_topic_id').val() || (topic_id == 'nil' && $('#post_topic_id').val() == "")) {
     $('#filter-container').after('<%= escape_javascript(render :partial=>'post', :locals=>{ :post=>@post }) %>');
+    $('#filter-container').next().animate({ height: 'toggle', opacity: 1, paddingTop: "10px", paddingBottom: "10px" }, 400);
+  }
   $('#notices').append('<div class="notice"><%= notice %><div class="remove_notice">X</div></div>');
   var tag = '.notice';
 <% end %>
