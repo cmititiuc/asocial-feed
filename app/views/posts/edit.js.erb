@@ -4,10 +4,6 @@ var cancelMarkup = '<a href="#" class="cancel">Cancel</a>';
 // find body container from edit link href
 var bodyContainer = $('.edit[href*="<%= @post.id %>"]').parent().siblings('.body');
 
-// save the body text in case changes are cancelled
-// TODO: just hide the body instead of deleting it, then you don't have to save the original text
-// var originalText[<%= @post.id %>] = bodyContainer.html();
-
 // get original post text
 var originalText = bodyContainer.html();
 

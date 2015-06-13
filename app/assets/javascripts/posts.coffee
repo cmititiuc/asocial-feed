@@ -19,12 +19,11 @@ $(document).on 'keyup', '#post_body', ->
 $(document).on 'click', '.formatting-help', ->
   $(this).children().toggle() # toggle link text
   # $('#markup-reference').toggle 400
-  console.log $(this).closest('form').siblings('.markup-reference').length
-  if $(this).closest('form').siblings('.markup-reference').length > 0
-    $(this).closest('form').siblings('.markup-reference').toggle 400
-  else
-    $(this).closest('form').after '<div class="markup-reference">' + $('.markup-reference').html() + '</div>'
-    $(this).closest('form').siblings('.markup-reference').toggle 400
+  form = $(this).closest 'form'
+  markup = $(this).closest('form').siblings '.markup-reference'
+  unless markup.length
+    form.after '<div class="markup-reference">' + $('.markup-reference:first').html() + '</div>'
+  $(this).closest('form').siblings('.markup-reference').toggle 400
   return false;
 
 # removes a notice when the X is clicked
