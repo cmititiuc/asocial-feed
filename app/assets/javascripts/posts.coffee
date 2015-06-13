@@ -65,7 +65,7 @@ $(document).on 'ajax:success', '.edit_post', ->
     .done (result) =>
       topic = $(this).parent().siblings '.topic'
       topic.html if result.topic then result.topic.name else ''
-      $(this).html result.body
+      $(this).parent().html result.body
 
 # delete a post
 $(document).on 'ajax:success', '.destroy', (e, data)->
