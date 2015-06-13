@@ -1,6 +1,3 @@
-// 'Cancel' link
-var cancelMarkup = '<a href="#" class="cancel">Cancel</a>';
-
 // find body container from edit link href
 var bodyContainer = $('.edit[href*="<%= @post.id %>"]').parent().siblings('.body');
 
@@ -15,9 +12,6 @@ bodyContainer.append('<div class="original-text">' + originalText + '</div>');
 
 // get the input field
 var textarea = $('#edit_post_<%= @post.id %> div #post_body');
-
-// add 'Cancel' link
-bodyContainer.prepend(cancelMarkup);
 
 // size input field to fit contents
 var scrollHeight = textarea.prop('scrollHeight');

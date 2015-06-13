@@ -18,7 +18,6 @@ $(document).on 'keyup', '#post_body', ->
 # shows/hides formatting reference
 $(document).on 'click', '.formatting-help', ->
   $(this).children().toggle() # toggle link text
-  # $('#markup-reference').toggle 400
   form = $(this).closest 'form'
   markup = $(this).closest('form').siblings '.markup-reference'
   unless markup.length
@@ -35,10 +34,18 @@ $(document).on 'ajax:beforeSend', '.edit', ->
   if $(this).parent().siblings('.body').children('form').length
     return false;
 
+# switch edit link to cancel link
+$(document).on 'ajax:success', '.edit', ->
+  $(this).toggle()
+  $(this).siblings('.cancel').toggle()
+
 # replace original post text when canceling edit
 $(document).on 'click', '.cancel', ->
-  originalText = $(this).closest('.body').children('.original-text').html()
-  $(this).closest('.body').html originalText
+  originalText = $(this).parent().siblings('.body').children('.original-text').html()
+  $(this).parent().siblings('.body').html originalText
+  # switch cancel link to edit link
+  $(this).toggle()
+  $(this).siblings('.edit').toggle()
   return false;
 
 # add new post to page
@@ -78,6 +85,7 @@ $(document).on 'ajax:success', '.destroy', (e, data)->
   remainingDate = post.next().children '.date'
   if deletedDate.text().trim().length > 0 && remainingDate.text().trim().length == 0
     remainingDate.text deletedDate.text()
+
   post.animate {
     opacity:        0,
     height:        '0',
@@ -89,7 +97,7 @@ $(document).on 'ajax:success', '.destroy', (e, data)->
 
 # returns param value of variable or null
 window.getQueryVariable = (variable)->
-   query = window.location.search.substring 1
-   params = query.split "&"
-   return param.split("=")[1] if param.split("=")[0] == variable for param in params
-   return false
+  query = window.location.search.substring 1
+  params = query.split "&"
+  return param.split("=")[1] if param.split("=")[0] == variable for param in params
+  return false
