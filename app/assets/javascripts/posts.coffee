@@ -70,8 +70,14 @@ $(document).on 'ajax:success', '.edit_post', ->
       dataType: "json"
     }
     .done (result) =>
+      # update topic
       topic = $(this).parent().siblings '.topic'
       topic.html if result.topic then result.topic.name else ''
+      # update links
+      links = $(this).parent().siblings '.links'
+      links.children('.edit').toggle()
+      links.children('.cancel').toggle()
+      #update body
       $(this).parent().html result.body
 
 # delete a post
@@ -85,7 +91,7 @@ $(document).on 'ajax:success', '.destroy', (e, data)->
   remainingDate = post.next().children '.date'
   if deletedDate.text().trim().length > 0 && remainingDate.text().trim().length == 0
     remainingDate.text deletedDate.text()
-
+  # remove post
   post.animate {
     opacity:        0,
     height:        '0',
