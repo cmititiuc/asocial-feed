@@ -22,10 +22,27 @@
   text-align: right;
 }
 
+#sign-out {
+  white-space: nowrap;
+}
+
 #header {
   padding-right: 150px;
   max-width: 100%;
   background-color: transparent;
+}
+
+.header-link {
+  clear: none;
+}
+
+#logo a img {
+  float: left;
+  margin-right: 10px;
+}
+
+#logo a img:hover {
+  opacity: .6;
 }
 
 @media (max-width: 540px) {

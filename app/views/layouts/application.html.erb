@@ -12,12 +12,10 @@
 <% if user_signed_in? %>
   <%= link_to image_tag('forkme.png', :style => 'float: right;'), "https://github.com/cmititiuc/asocial-feed" %>
   <div id="header" class="grid grid-pad">
+    <div id="logo" class="col-1-12"><%= link_to image_tag('logo.png'), root_path %></div>
     <div id="sign-out" class="col-1-12 push-right"><%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %></div>
     <div id="email" class="col-5-12 push-right"><%= link_to current_user.email, edit_user_registration_path %></div>
-    <div class="col-1-12">
-      <%= link_to 'Posts', posts_path, :class=>"#{'current-page-link' if controller_name == 'posts'}" %>
-    </div>
-    <div class="col-1-12">
+    <div class="col-1-12 header-link">
       <%= link_to 'Topics', topics_path, :class=>"#{'current-page-link' if controller_name == 'topics'}" %>
     </div>
   </div>
