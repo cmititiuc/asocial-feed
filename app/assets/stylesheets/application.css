@@ -19,6 +19,10 @@ body {
   background-color: #f3f3e7;
 }
 
+.body p, .body ol, .body ul {
+  font-family: georgia, serif;
+}
+
 .guest-login {
   margin-bottom: 10px;
 }
