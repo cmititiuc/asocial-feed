@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     create_samples samples
 
     message = <<EOS
-Hello!
+h1. Hello!
 
 Thank you for your interest in asocial-feed. It's a simple way to record personal messages and ideas without having to worry about what others may think of them.  Also, because it's online, you can access your personal feed from anywhere with internet access!
 

@@ -13,7 +13,9 @@ $(document).on 'page:load', setup
 # enlarges input field as needed while typing
 $(document).on 'keyup', '#post_body', ->
   scrollHeight = $(this).prop 'scrollHeight'
-  $(this).height scrollHeight
+  padding = -(0 - $(this).css('padding-top').match(/[0-9]+/)[0] \
+                - $(this).css('padding-bottom').match(/[0-9]+/)[0])
+  $(this).height scrollHeight - padding
 
 # shows/hides formatting reference
 $(document).on 'click', '.formatting-help', ->

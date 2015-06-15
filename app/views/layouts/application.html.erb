@@ -10,7 +10,7 @@
 <body>
 
 <% if user_signed_in? %>
-  <%= link_to image_tag('forkme.png', :style => 'float: right;'), "https://github.com/cmititiuc/asocial-feed" %>
+  <%#= link_to image_tag('forkme.png', :style => 'float: right;'), "https://github.com/cmititiuc/asocial-feed" %>
   <div id="header" class="grid grid-pad">
     <div id="logo" class="col-1-12"><%= link_to image_tag('logo.png'), root_path %></div>
     <div id="sign-out" class="col-1-12 push-right"><%= link_to 'Sign out', destroy_user_session_path, :method=>:delete %></div>
