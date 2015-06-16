@@ -98,7 +98,8 @@ select {
 
 .grid:nth-child(even) {
   /*background: #f0f0e3;*/
-  background-color: rgb(168, 151, 77);
+  /*background-color: rgb(168, 151, 77);*/
+  background-color: rgb(191, 181, 142);
 }
 .grid:nth-child(odd) {
   /*background: #e7e7e0;*/
