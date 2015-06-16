@@ -189,6 +189,10 @@
   }
 }
 
+.cancel {
+  display: none;
+}
+
 @media (max-width: 860px) {
   .links {
     display: inline-block;

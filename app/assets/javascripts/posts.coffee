@@ -39,7 +39,7 @@ $(document).on 'ajax:beforeSend', '.edit', ->
 # switch edit link to cancel link
 $(document).on 'ajax:success', '.edit', ->
   $(this).toggle()
-  $(this).siblings('.cancel').toggle()
+  $(this).siblings('.cancel').css('display', 'inline-block')
 
 # replace original post text when canceling edit
 $(document).on 'click', '.cancel', ->
