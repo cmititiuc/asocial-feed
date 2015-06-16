@@ -8,6 +8,7 @@ class PostsController < ApplicationController
     @post = Post.new
     @posts = current_or_guest_user.posts
     @posts = @posts.topic_id(params[:topic_id]) if params[:topic_id]
+    @day = nil
     @current_or_guest_user = current_or_guest_user
     @examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
                    @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list)

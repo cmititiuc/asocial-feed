@@ -1,4 +1,4 @@
-<div class="grid grid-pad" style="display: none; padding-top: 0; padding-bottom: 0;">
+<div class="grid grid-pad" style="<%= 'display: none; padding-top: 0; padding-bottom: 0;' if request.xhr? %>">
   <div class="links">
     <%#= link_to 'Show', post %>
     <%= link_to 'Edit', edit_post_path(post), :remote => true, :class => 'edit' %>
@@ -6,10 +6,10 @@
     <%= link_to 'Destroy', post, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => 'destroy' %>
   </div>
   <div class="date">
-    <%# unless day == post.created_at.strftime('%A') %>
-      <% day = post.created_at.strftime('%A') %>
+    <% if request.xhr? || @day != post.created_at.strftime('%A') %>
+      <% @day = post.created_at.strftime('%A') %>
       <%= post.created_at.strftime('%a, %b %d, %Y') %>
-    <%# end %>
+    <% end %>
   </div>
   <div class="time"><%= post.created_at.strftime('%-I:%M %p') %></div>
   <div class="topic"><%= post.topic.name if post.topic %></div>
