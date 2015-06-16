@@ -17,7 +17,8 @@
 body {
   /*background-color: #f9f9f3;*/
   /*background-color: #f3f3e7;*/
-  background-color: rgb(225, 214, 167);
+  /*background-color: rgb(225, 214, 167);*/
+  background-color: #BFB58E;
 }
 
 pre {
@@ -47,7 +48,9 @@ pre {
 #header {
   /*padding-right: 150px;*/
   max-width: 100%;
-  background-color: transparent;
+  /*background-color: transparent;*/
+  background-color: #BFB58E;
+  /*background-color: #E1D6A7;*/
 }
 
 .header-link {

@@ -28,7 +28,8 @@
   // font-weight: bold;
   font-family: georgia, serif;
   font-size: 140%;
-  color: rgb(174, 0, 0);
+  // color: rgb(174, 0, 0);
+  color: rgb(129, 0, 0);
 }
 
 .time {
@@ -55,7 +56,8 @@
   // padding-right: 10em;
   margin-right: 10em;
   // width: 100%;
-  background-color: #ffffff;
+  // background-color: #ffffff;
+  background-color: rgb(233, 229, 215);
   padding: 10px;
   border-radius: 6px;
 }
@@ -79,12 +81,14 @@
   /*max-width: 50em;*/
   /*margin-bottom: 2em;*/
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 #post-index-form-container {
   @extend #post-form-container;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 10px;
 }
 
 #post-form-body-input-field {
@@ -231,6 +235,10 @@
     display: block;
     width: 100%;
     float: none;
+    a {
+      float: right;
+      margin-left: 5px;
+    }
   }
   .date {
     width: 100%;

@@ -2,16 +2,18 @@
 
 <div id="notices"></div>
 
-<div id="post-index-form-container">
-  <%= render :partial => 'posts/index_form' %>
-  <div class="markup-reference">
-    <div>Formatting Reference</div>
-    <% @examples.each do |example| %>
-      <div style="float: left"><p><%= example %></p></div>
-      <div style="float: right;"><%= RedCloth.new(example).to_html.html_safe %></div>
-      <div style="clear: both"></div>
-    <% end %>
-    <div>We use RedCloth for simple markup.  <%= link_to 'Learn more.', 'http://redcloth.org/textile' %></div>
+<div style="background-color: #E1D6A7;">
+  <div id="post-index-form-container">
+    <%= render :partial => 'posts/index_form' %>
+    <div class="markup-reference">
+      <div>Formatting Reference</div>
+      <% @examples.each do |example| %>
+        <div style="float: left"><p><%= example %></p></div>
+        <div style="float: right;"><%= RedCloth.new(example).to_html.html_safe %></div>
+        <div style="clear: both"></div>
+      <% end %>
+      <div>We use RedCloth for simple markup.  <%= link_to 'Learn more.', 'http://redcloth.org/textile' %></div>
+    </div>
   </div>
 </div>
 
