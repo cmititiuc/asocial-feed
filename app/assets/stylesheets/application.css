@@ -15,12 +15,19 @@
  */
 
 body {
-  /*background-color: #f9f9f3;*/
-  background-color: #f3f3e7;
+  background-color: #f9f9f3;
+  /*background-color: #f3f3e7;*/
+}
+
+pre {
+  background-color: #2c2c2a;
+  color: #ffffff;
 }
 
 .body p, .body ol, .body ul {
   font-family: georgia, serif;
+  font-size: 120%;
+  line-height: 1.5em;
 }
 
 .guest-login {
@@ -33,6 +40,7 @@ body {
 
 #sign-out {
   white-space: nowrap;
+  text-align: right;
 }
 
 #header {
@@ -57,6 +65,7 @@ body {
 input[type="submit"] {
   color: #FFFFFF;
   background-color: #009eff;
+  /*background-color: #6a6a67;*/
   border-radius: 6px;
   padding: 5px;
   border-bottom: 1px solid #2c2c2a;
@@ -85,6 +94,9 @@ select {
   border-left: 1px solid #7c7c75;
   border-top: 1px solid #7c7c75;
 }
+
+.grid:nth-child(even) {background: #f0f0e3;}
+.grid:nth-child(odd) {background: #e7e7e0;}
 
 @media (max-width: 540px) {
   #header {

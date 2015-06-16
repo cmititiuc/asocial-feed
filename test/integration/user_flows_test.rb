@@ -47,3 +47,4 @@ end
 # topic stays when post created while filter is set
 # post created with topic not matching filter is not displayed
 # post created matching filter is displayed
+# BUG: while filterd, changing a post's topic should not display post if topic new doesn't match filter
