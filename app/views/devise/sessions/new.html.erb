@@ -24,7 +24,7 @@
         <%= f.submit "Log in" %> 
       </div>
     <% end %>
-    <%= button_to 'Log in as a guest', guest_path, :method => :post, :class => 'guest-login' %>
+    <%= button_to 'Log in as a guest (no signup required)', guest_path, :method => :post, :class => 'guest-login' %>
     <%= render "devise/shared/links" %>
   </div>
 </div>

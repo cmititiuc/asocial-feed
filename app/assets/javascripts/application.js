@@ -14,3 +14,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// hide all our cancel links
+// we start with them visible, so toggle() will remember
+// their display values later when we reveal them
+// otherwise we'd have to do something clever to get
+// them to display inline-block
+$(document).ready(function() {
+  $('.cancel').toggle();
+});
+
+$(document).on('page:load', function() {
+  $('.cancel').toggle();
+});
