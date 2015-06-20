@@ -5,7 +5,21 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     session = login(users(:one))
     assert_equal session.flash[:notice], 'Signed in successfully.'
     assert_equal '/', session.path
-    # session.assert_select '#add-new-topic', 'Add new topic'
+  end
+
+  test "show and hide formatting reference" do
+    Capybara.current_driver = :webkit
+    visit root_path
+    fill_in 'user_email', :with => users(:two).email
+    fill_in 'user_password', :with => DEFAULT_PASSWORD
+    assert page.has_button? 'Log in'
+    click_button 'Log in'
+    assert page.has_no_content? 'Formatting Reference'
+    click_link 'Formatting help'
+    assert page.has_content? 'Formatting Reference'
+    click_link 'Hide formatting help'
+    assert page.has_no_content? 'Formatting Reference'
+    Capybara.use_default_driver
   end
 
   private
@@ -41,7 +55,6 @@ end
 # correct text on injected form
 # test sign up
 # test log in as a guest
-# test formatting help
 # topic changes to none after create if no filter is set
 # topic changes to filter when filter is set
 # topic stays when post created while filter is set
