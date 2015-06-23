@@ -10,13 +10,6 @@ class PostsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:posts)
-    assert_select '#filter-container', /none.+#{@post.topic.name}/m
-
-    sign_out @post.user
-    sign_in users(:two)
-
-    get :index
-    assert_select '#filter-container', ''
   end
 
   test "should get new" do
@@ -26,7 +19,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should create post" do
     assert_difference('Post.count') do
-      post :create, post: { body: @post.body, topic_id: @post.topic_id, user_id: @post.user_id }
+      post :create, post: { body: @post.body, user_id: @post.user_id }
     end
 
     assert_redirected_to post_path(assigns(:post))
@@ -43,7 +36,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should update post" do
-    patch :update, id: @post, post: { body: @post.body, topic_id: @post.topic_id, user_id: @post.user_id }
+    patch :update, id: @post, post: { body: @post.body, user_id: @post.user_id }
     assert_redirected_to post_path(assigns(:post))
   end
 
@@ -53,13 +46,5 @@ class PostsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to posts_path
-  end
-
-  test "should set same topic as filter" do
-    get :index
-    assert_select '#post_topic_id option[selected="selected"]', 0
-
-    get :index, :topic_id => @post.topic.id
-    assert_select '#post_topic_id option[selected="selected"]', @post.topic.name
   end
 end

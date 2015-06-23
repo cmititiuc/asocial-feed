@@ -1,4 +1,4 @@
-<div class="grid grid-pad" style="<%= 'display: none; padding-top: 0; padding-bottom: 0;' if request.xhr? %>">
+<div class="grid grid-pad post" style="<%= 'display: none; padding-top: 0; padding-bottom: 0;' if request.xhr? %>">
   <div class="links">
     <%#= link_to 'Show', post %>
     <%= link_to 'Edit', edit_post_path(post), :remote => true, :class => 'edit' %>
@@ -12,7 +12,7 @@
     <% end %>
   </div>
   <div class="time"><%= post.created_at.strftime('%-I:%M %p') %></div>
-  <div class="topic"><%= post.topic.name if post.topic %></div>
+  <div class="tags"><%= post.tags.map(&:name).join(', ') %></div>
   <div class="body">
     <% doc = RedCloth.new(post.body); doc.filter_html = true %>
     <%= doc.to_html.html_safe %>

@@ -7,9 +7,9 @@ class PostsController < ApplicationController
   def index
     @post = Post.new
     @posts = current_or_guest_user.posts
-    @posts = @posts.topic_id(params[:topic_id]) if params[:topic_id]
     @day = nil
     @current_or_guest_user = current_or_guest_user
+    @tags = current_or_guest_user.owned_tags
     @examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
                    @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list)
     @examples << "\"This is a link (This is a title)\":http://example.org"
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
       format.html
       format.json {
         @post.body = RedCloth.new(@post.body).to_html.html_safe
-        render :json => @post.to_json(:include => :topic)
+        render :json => @post.to_json(:include => :tags)
       }
     end
   end
@@ -30,11 +30,13 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @tags = current_or_guest_user.owned_tags
   end
 
   # GET /posts/1/edit
   def edit
     @current_or_guest_user = current_or_guest_user
+    @tags = @current_or_guest_user.owned_tags
     respond_to do |format|
       format.html
       format.js
@@ -44,17 +46,20 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    tag_list = params[:post].delete(:tag_list)
     @post = current_or_guest_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
+        current_or_guest_user.tag(@post, :with => tag_list.join(','), :on => :tags) unless tag_list.nil?
+
         format.html { redirect_to (params[:return_to] ? params[:return_to] : @post), notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
         format.js { render :create, :locals => { notice: 'Post was successfully created.' }}
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
-        format.js
+        format.js { render :create, status: :unprocessable_entity }
       end
     end
   end
@@ -62,15 +67,19 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    tag_list = params[:post].delete(:tag_list)
+
     respond_to do |format|
       if @post.update(post_params)
+        current_or_guest_user.tag(@post, :with => tag_list.join(','), :on => :tags) unless tag_list.nil?
+
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
         format.js { render :update, :locals => { notice: 'Post was successfully updated.' }}
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
-        format.js
+        format.js { render :update, status: :unprocessable_entity }
       end
     end
   end
@@ -94,6 +103,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:body, :user_id, :topic_id, :return_to)
+      params.require(:post).permit(:body, :user_id, :return_to, :tag_list => [])
     end
 end

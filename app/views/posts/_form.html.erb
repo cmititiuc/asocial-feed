@@ -12,12 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.select :tag_list,
+                 options_from_collection_for_select(@tags, :name, :name, @post.tags.map(&:name)),
+                 {},
+                 { :multiple => true, :size => 1, :style => 'width: 100%;' }
+    %>
   </div>
   <div class="field">
-    <%= f.label :topic_id %><br>
-    <%= f.select :topic_id, [['-- None --', '']] + current_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
   </div>
   <div class="actions">
     <%= f.submit %>

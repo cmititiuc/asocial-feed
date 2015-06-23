@@ -6,6 +6,7 @@ setup = ->
   # set correct height for input field
   scrollHeight = $('#post_body').prop 'scrollHeight'
   $('#post_body').height scrollHeight
+  $('#post_tag_list').select2({ tags: true })
 
 $(document).ready setup
 $(document).on 'page:load', setup
@@ -40,6 +41,7 @@ $(document).on 'ajax:beforeSend', '.edit', ->
 $(document).on 'ajax:success', '.edit', ->
   $(this).toggle()
   $(this).siblings('.cancel').css('display', 'inline-block')
+  $(this).parent().siblings('.body').find('select:last').select2({ tags: true })
 
 # replace original post text when canceling edit
 $(document).on 'click', '.cancel', ->
@@ -54,16 +56,16 @@ $(document).on 'click', '.cancel', ->
 $(document).on 'ajax:success', '#new_post', ->
   $('#new_post #post_body').val '' # clear text
   $('#new_post #post_body').height '' # reset height
-  
-  # clear topic_id selector if no filter is set
-  $('#post_topic_id').val '' unless getQueryVariable 'topic_id'
 
   # removes the date from the second record if it is
   # the same as the date of the new record
-  post = $('#filter-container').next()
+  post = $('.post:first')
   newDate = post.children '.date'
   oldDate = post.next().children '.date'
   oldDate.text '' if newDate.text().trim() == oldDate.text().trim()
+
+  # clear tag list field
+  $('#post_tag_list').val(null).trigger 'change'
 
 # if edit succeeds, update the view
 $(document).on 'ajax:success', '.edit_post', ->
@@ -72,9 +74,9 @@ $(document).on 'ajax:success', '.edit_post', ->
       dataType: "json"
     }
     .done (result) =>
-      # update topic
-      topic = $(this).parent().siblings '.topic'
-      topic.html if result.topic then result.topic.name else ''
+      # update tags
+      tags = $(this).parent().siblings '.tags'
+      tags.html (tag.name for tag in result.tags).join(', ')
       # update links
       links = $(this).parent().siblings '.links'
       links.children('.edit').toggle()

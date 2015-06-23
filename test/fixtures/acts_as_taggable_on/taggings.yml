@@ -1,0 +1,5 @@
+one:
+  tag: :one
+  taggable: two (Post)
+  tagger: two (User)
+  context: tags

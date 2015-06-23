@@ -10,17 +10,13 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
-    <% if @post.new_record? %>
-      <%= f.select :topic_id,
-                   [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] },
-                   :selected => params[:topic_id] %>
-    <% else %>
-      <%= f.select :topic_id,
-                 [['-- None --', '']] + @current_or_guest_user.topics.order(:name).map{ |t| [t.name, t.id] } %>
-    <% end %>
-    <span id="add-new-topic">Add new topic</span>
+    <%= f.select :tag_list,
+                 options_from_collection_for_select(@tags, :name, :name, @post.tags.map(&:name)),
+                 {},
+                 { :multiple => true, :size => 1, :style => 'width: 100%;' }
+    %>
   </div>
   <div class="field">
     <%= f.text_area :body %>

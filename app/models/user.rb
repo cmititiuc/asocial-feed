@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
+  acts_as_tagger
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable
-  has_many :topics, :dependent => :destroy
   has_many :posts, :dependent => :destroy
 
   def self.destroy_guests
@@ -57,13 +58,12 @@ EOS
           )
         end
       else
-        topic = topics.create(:name => key.to_s.humanize.titleize)
         values.each_with_index do |value, index|
-          posts.create(
+          post = posts.create(
             :body => value,
-            :topic => topic,
             :created_at => random_date(index)
           )
+          tag(post, :with => key.to_s, :on => :tags)
         end
       end
     end

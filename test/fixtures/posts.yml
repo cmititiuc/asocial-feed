@@ -3,4 +3,6 @@
 one:
   body: Post 1
   user: one
-  topic: metaphysics
+two:
+  body: Post 2
+  user: two
