@@ -1,7 +1,7 @@
 class TopicsToTags < ActiveRecord::Migration
   def up
     Post.all.each do |post|
-      post.user.tag(post, :with => Topic.find(post.topic_id).name, :on => :tags)
+      post.user.tag(post, :with => Topic.find(post.topic_id).name, :on => :tags) if post.topic_id
     end
     remove_index :posts, :topic_id
     remove_index :topics, :user_id
@@ -22,9 +22,11 @@ class TopicsToTags < ActiveRecord::Migration
     add_foreign_key :posts, :topics
     add_foreign_key :topics, :users
     Post.all.each do |post|
-      topic = Topic.create(:user_id => post.user_id, :name => post.tags.first.name) if post.tags.first
-      post.update_attributes(:topic_id => topic.id)
-      post.taggings.destroy_all
+      if post.tags.first
+        topic = Topic.create(:user_id => post.user_id, :name => post.tags.first.name)
+        post.update_attributes(:topic_id => topic.id)
+        post.taggings.destroy_all
+      end
     end
   end
 end
