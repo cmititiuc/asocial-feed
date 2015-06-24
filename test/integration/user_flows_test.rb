@@ -19,6 +19,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Formatting Reference'
     click_link 'Hide formatting help'
     assert page.has_no_content? 'Formatting Reference'
+    click_link 'Sign out'
     Capybara.use_default_driver
   end
 
