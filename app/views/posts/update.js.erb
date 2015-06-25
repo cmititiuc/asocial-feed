@@ -5,8 +5,12 @@
   <% end %>
   markup += '</ul>'
   $('#notices').append('<div class="error"><div class="remove_notice">X</div>' + markup + '</div>');
-  $('.error').last().delay(5000).fadeOut('slow', function(){ $(this).remove(); });
+  var tag = '.error';
 <% else %>
   $('#notices').append('<div class="notice"><%= notice %><div class="remove_notice">X</div></div>');
-  $('.notice').last().delay(5000).fadeOut('slow', function(){ $(this).remove(); });
+  $('a[href="/posts/<%= @post.id %>/edit"]').parent().parent().replaceWith('<%= escape_javascript(render :partial=>'post', :locals=>{ :post=>@post }) %>');
+  $('#filter-container').replaceWith('<%= escape_javascript(render :partial => 'filter') %>');
+  var tag = '.notice';
 <% end %>
+
+$(tag).last().delay(2500).fadeOut('slow', function(){ $(this).remove(); });

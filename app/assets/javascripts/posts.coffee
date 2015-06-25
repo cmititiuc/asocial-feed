@@ -67,28 +67,8 @@ $(document).on 'ajax:success', '#new_post', ->
   # clear tag list field
   $('#post_tag_list').val(null).trigger 'change'
 
-# if edit succeeds, update the view
-$(document).on 'ajax:success', '.edit_post', ->
-  $.ajax {
-      url: '/posts/' + $(this).prop('id').match(/[0-9]+/)[0],
-      dataType: "json"
-    }
-    .done (result) =>
-      # update tags
-      tags = $(this).parent().siblings '.tags'
-      tags.html (tag.name for tag in result.tags).join(', ')
-      # update links
-      links = $(this).parent().siblings '.links'
-      links.children('.edit').toggle()
-      links.children('.cancel').toggle()
-      #update body
-      $(this).parent().html result.body
-
 # delete a post
 $(document).on 'ajax:success', '.destroy', (e, data)->
-  # print notice
-  $('#notices').append '<div class="notice">' + data + '<div class="remove_notice">X</div></div>'
-  $('.notice').last().delay(2500).fadeOut 'slow', -> $(this).remove()
   post = $(this).closest '.grid'
   # set date for post after deleted one if it needs it
   deletedDate = post.children '.date'

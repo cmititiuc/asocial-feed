@@ -1,18 +1,16 @@
-<div class="grid grid-pad post" style="<%= 'display: none; padding-top: 0; padding-bottom: 0;' if request.xhr? %>">
+<div class="grid grid-pad post" style="<%= 'display: none; padding-top: 0; padding-bottom: 0;' if request.post? %>">
   <div class="links">
-    <%#= link_to 'Show', post %>
     <%= link_to 'Edit', edit_post_path(post), :remote => true, :class => 'edit' %>
     <%= link_to 'Cancel', '#', :class => 'cancel' %>
     <%= link_to 'Destroy', post, method: :delete, :remote => true, data: { confirm: 'Are you sure?' }, :class => 'destroy' %>
   </div>
   <div class="date">
-    <% if request.xhr? || @day != post.created_at.strftime('%A') %>
-      <% @day = post.created_at.strftime('%A') %>
+    <% if post == @posts.where(:created_at => post.created_at.midnight..post.created_at.end_of_day).order('created_at DESC').first %>
       <%= post.created_at.strftime('%a, %b %d, %Y') %>
     <% end %>
   </div>
   <div class="time"><%= post.created_at.strftime('%-I:%M %p') %></div>
-  <div class="tags"><%= post.tags.map(&:name).join(', ') %></div>
+  <div class="tags"><%= raw post.tags.map(&:name).map { |t| link_to t.titleize, posts_path(:tags => t) }.join(', ') %></div>
   <div class="body">
     <% doc = RedCloth.new(post.body); doc.filter_html = true %>
     <%= doc.to_html.html_safe %>

@@ -1,0 +1,9 @@
+<div id="filter-container">
+  <%= link_to 'clear filter', posts_path if params[:tags] %>
+  <%= link_to 'none', posts_path(:tags => ''),
+      :class => "#{'current-page-link' if params[:tags] == ''}" unless @current_or_guest_user.owned_tags.empty? %>
+  <% @current_or_guest_user.owned_tags.each do |tag| %>
+    <%= link_to tag.name.titleize, posts_path(:tags => tag.name),
+        :class => "#{'current-page-link' if params[:tags] == tag.name}"  %>
+  <% end %>
+</div>

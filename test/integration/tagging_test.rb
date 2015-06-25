@@ -38,7 +38,7 @@ class TaggingTest < ActionDispatch::IntegrationTest
     assert page.has_no_css? '.select2-selection__choice'
 
     # tag is on the page now
-    assert page.has_content? tag
+    assert page.has_content? tag.titleize
     assert page.has_css? '.post'
   end
 
@@ -46,7 +46,7 @@ class TaggingTest < ActionDispatch::IntegrationTest
     tag = 'testtag3'
     assert page.has_content? @user.email
     assert page.has_content? 'Post 2'
-    assert page.has_content? 'testtag1'
+    assert page.has_content? 'testtag1'.titleize
     assert page.has_css? '.post'
 
     first('.edit').click
@@ -66,7 +66,7 @@ class TaggingTest < ActionDispatch::IntegrationTest
 
     assert page.has_content?('Post was successfully updated.')
     within first('.post') do
-      assert page.has_content? tag
+      assert page.has_content? tag.titleize
     end
   end
 end

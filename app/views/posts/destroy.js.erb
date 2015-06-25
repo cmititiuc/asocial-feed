@@ -1,0 +1,4 @@
+$('#filter-container').replaceWith('<%= escape_javascript(render :partial => 'filter') %>');
+
+$('#notices').append('<div class="notice"><%= notice %><div class="remove_notice">X</div></div>');
+$('.notice').last().delay(2500).fadeOut('slow', function(){ $(this).remove(); });

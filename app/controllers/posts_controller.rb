@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_posts, only: [:index, :create, :update]
 
   # GET /posts
   # GET /posts.json
   def index
     @post = Post.new
-    @posts = current_or_guest_user.posts
     @day = nil
     @current_or_guest_user = current_or_guest_user
     @tags = current_or_guest_user.owned_tags
@@ -46,6 +46,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    @current_or_guest_user = current_or_guest_user
     tag_list = params[:post].delete(:tag_list)
     @post = current_or_guest_user.posts.build(post_params)
 
@@ -67,6 +68,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    @current_or_guest_user = current_or_guest_user
     tag_list = params[:post].delete(:tag_list)
 
     respond_to do |format|
@@ -87,11 +89,12 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    @current_or_guest_user = current_or_guest_user
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
-      format.js { render :plain => 'Post was successfully destroyed.' }
+      format.js { render :destroy, :locals => { notice: 'Post was successfully destroyed.' }}
     end
   end
 
@@ -99,6 +102,17 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = current_or_guest_user.posts.find(params[:id])
+    end
+
+    def set_posts
+      @posts = current_or_guest_user.posts
+      if params[:tags]
+        if params[:tags] == ''
+          @posts = @posts.tagged_with(current_or_guest_user.owned_tags.map(&:name), :exclude => true)
+        else
+          @posts = @posts.tagged_with(params[:tags])
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

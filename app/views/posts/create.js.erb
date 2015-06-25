@@ -7,7 +7,8 @@
   $('#notices').append('<div class="error"><div class="remove_notice">X</div>' + markup + '</div>');
   var tag = '.error';
 <% else %>
-  $('#input-container').after('<%= escape_javascript(render :partial=>'post', :locals=>{ :post=>@post }) %>');
+  $('#filter-container').after('<%= escape_javascript(render :partial=>'post', :locals=>{ :post=>@post }) %>');
+  $('#filter-container').replaceWith('<%= escape_javascript(render :partial => 'filter') %>');
   $('.post:first').animate({ height: 'toggle', opacity: 1, paddingTop: "10px", paddingBottom: "10px" }, 400);
   $('#notices').append('<div class="notice"><%= notice %><div class="remove_notice">X</div></div>');
   var tag = '.notice';
