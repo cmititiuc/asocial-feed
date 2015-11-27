@@ -4,8 +4,7 @@ development:
   database: asocial-feed_development
   pool: 5
   timeout: 5000
-  username: m
-  password:
+  username: asocial-feed
 
 test:
   adapter: postgresql
@@ -13,8 +12,7 @@ test:
   database: asocial-feed_test
   pool: 5
   timeout: 5000
-  username: m
-  password:
+  username: asocial-feed
 
 production:
   adapter: postgresql
