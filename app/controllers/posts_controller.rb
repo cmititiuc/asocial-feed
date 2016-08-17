@@ -10,9 +10,20 @@ class PostsController < ApplicationController
     @day = nil
     @current_or_guest_user = current_or_guest_user
     @tags = current_or_guest_user.owned_tags
-    @examples = %w(_emphasis_ *strong* -deleted\ text- +inserted\ text+ ^superscript^ ~subscript~
-                   @code@ h3.\ Header\ 3 bq.\ Blockquote #\ Numeric\ list *\ Bulleted\ list)
-    @examples << "\"This is a link (This is a title)\":http://example.org"
+    @examples = %w(
+      _emphasis_
+      *strong*
+      -deleted\ text-
+      +inserted\ text+
+      ^superscript^
+      ~subscript~
+      @code@
+      h3.\ Header\ 3
+      bq.\ Blockquote
+      #\ Numeric\ list
+      *\ Bulleted\ list
+    )
+    @examples << '"This is a link (This is a title)":http://example.org'
   end
 
   # GET /posts/1
@@ -52,11 +63,24 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        current_or_guest_user.tag(@post, :with => tag_list.join(','), :on => :tags) unless tag_list.nil?
+        unless tag_list.nil?
+          current_or_guest_user
+            .tag(@post, :with => tag_list.join(','), :on => :tags)
+        end
 
-        format.html { redirect_to (params[:return_to] ? params[:return_to] : @post), notice: 'Post was successfully created.' }
+        format.html {
+          redirect_to(
+            (params[:return_to] || @post),
+            notice: 'Post was successfully created.'
+          )
+        }
         format.json { render :show, status: :created, location: @post }
-        format.js { render :create, :locals => { notice: 'Post was successfully created.' }}
+        format.js {
+          render(
+            :create,
+            :locals => { notice: 'Post was successfully created.' }
+          )
+        }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -73,11 +97,19 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.update(post_params)
-        current_or_guest_user.tag(@post, :with => tag_list.join(','), :on => :tags) unless tag_list.nil?
+        unless tag_list.nil?
+          current_or_guest_user
+            .tag(@post, :with => tag_list.join(','), :on => :tags)
+        end
 
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
-        format.js { render :update, :locals => { notice: 'Post was successfully updated.' }}
+        format.js {
+          render(
+            :update,
+            :locals => { notice: 'Post was successfully updated.' }
+          )
+        }
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -92,31 +124,39 @@ class PostsController < ApplicationController
     @current_or_guest_user = current_or_guest_user
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html {
+        redirect_to(posts_url, notice: 'Post was successfully destroyed.')
+      }
       format.json { head :no_content }
-      format.js { render :destroy, :locals => { notice: 'Post was successfully destroyed.' }}
+      format.js { render(:destroy, :locals => {
+        notice: 'Post was successfully destroyed.'
+      })}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = current_or_guest_user.posts.find(params[:id])
-    end
 
-    def set_posts
-      @posts = current_or_guest_user.posts
-      if params[:tags]
-        if params[:tags] == ''
-          @posts = @posts.tagged_with(current_or_guest_user.owned_tags.map(&:name), :exclude => true)
-        else
-          @posts = @posts.tagged_with(params[:tags])
-        end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = current_or_guest_user.posts.find(params[:id])
+  end
+
+  def set_posts
+    @posts = current_or_guest_user.posts
+    if params[:tags]
+      if params[:tags] == ''
+        @posts = @posts.tagged_with(
+          current_or_guest_user.owned_tags.map(&:name),
+          :exclude => true
+        )
+      else
+        @posts = @posts.tagged_with(params[:tags])
       end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:body, :user_id, :return_to, :tag_list => [])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:body, :user_id, :return_to, :tag_list => [])
+  end
 end
