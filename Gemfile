@@ -38,7 +38,8 @@ gem 'devise'
 gem 'RedCloth'
 gem 'acts-as-taggable-on', '~> 3.4'
 
-gem 'rails_12factor'
+# http://stackoverflow.com/questions/29302818/duplicate-output-in-logs-for-rails-app
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
